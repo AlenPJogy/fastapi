@@ -29,7 +29,6 @@ class Post(PostBase):
     created_at: datetime
     owner_id: int
     owner: UserOut
-    comments: List["CommentOut"]= []
 
 class PostOut(BaseModel):
     model_config = ConfigDict(from_attributes=True)
