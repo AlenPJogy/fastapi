@@ -47,7 +47,7 @@ class CommentOut(BaseModel):
 
     id: int
     comment: str
-    email: str
+    email: UserCommentOut
 
 
 class UserCreate(BaseModel):
