@@ -64,4 +64,3 @@ class Vote(BaseModel):
 class CommentBase(BaseModel):
     comment: str
     post_id: int
-    user_id: int
