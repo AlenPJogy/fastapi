@@ -10,7 +10,7 @@ def comment(comment: schemas.CommentBase, db: Session = Depends(database.get_db)
     post = db.query(models.Post).filter(models.Post.id == comment.post_id).first()
     if not post:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Post with id {comment.post_id} not found")
-    new_comment = models.Comment(comment=comment.comment, post_id=comment.post_id, user_id=current_user.id)
+    new_comment = models.Comment(comment=comment.comment, post_id=comment.post_id, email=current_user.email)
     db.add(new_comment)
     db.commit()
     db.refresh(new_comment)
