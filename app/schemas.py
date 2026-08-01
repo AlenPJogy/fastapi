@@ -30,9 +30,13 @@ class Post(PostBase):
     created_at: datetime
     owner_id: int
     owner: UserOut
+    comments: str
 
+class PostOut(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
 
-
+    Post: Post
+    votes: int
 
 
 class UserCreate(BaseModel):
@@ -70,9 +74,5 @@ class CommentOut(BaseModel):
 
 
 
-class PostOut(BaseModel):
-    model_config = ConfigDict(from_attributes=True)
 
-    Post: Post
-    votes: int
-    comments: str
+    
