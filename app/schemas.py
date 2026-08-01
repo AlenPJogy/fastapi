@@ -60,3 +60,8 @@ class TokenData(BaseModel):
 class Vote(BaseModel):
     post_id: int
     dir: Annotated[int, Field(le=1)]
+
+class CommentBase(BaseModel):
+    comment: str
+    post_id: int
+    user_id: int
