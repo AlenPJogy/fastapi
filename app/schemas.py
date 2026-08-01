@@ -46,6 +46,13 @@ class CommentOut(BaseModel):
     comment: str
     email: EmailStr
 
+class PostResponse(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    Post: Post
+    comment: List[CommentOut] = []
+    votes: int
+
 
 class UserCreate(BaseModel):
     email: EmailStr

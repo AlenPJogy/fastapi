@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 
 router = APIRouter( prefix = "/comments", tags= ['comment'])
 
-@router.post("/", status_code=status.HTTP_201_CREATED)
+@router.post("/", status_code=status.HTTP_201_CREATED, response_model=schemas.CommentBase)
 def comment(comment: schemas.CommentBase, db: Session = Depends(database.get_db),  current_user: int = Depends(oauth2.get_current_user)):
     post = db.query(models.Post).filter(models.Post.id == comment.post_id).first()
     if not post:
