@@ -38,6 +38,12 @@ class PostOut(BaseModel):
     Post: Post
     votes: int
 
+class CommentOut(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+
+    id: int
+    CommentBase: CommentBase
 
 class UserCreate(BaseModel):
     email: EmailStr
@@ -65,12 +71,7 @@ class CommentBase(BaseModel):
     comment: str
     post_id: int
 
-class CommentOut(BaseModel):
-    model_config = ConfigDict(from_attributes=True)
 
-
-    id: int
-    content: str
 
 
 
