@@ -33,8 +33,8 @@ async def get_posts(db: Session = Depends(get_db), current_user: int = Depends(o
     for post in posts:
         response.append(
             schemas.PostResponse(
-                Post=post[0],
-                comments=[schemas.CommentOut(id=comment.id, comment=comment.comment, email=comment.email) for comment in post[0].comments],
+                Post=post,
+                comments=[schemas.CommentOut(email=comment.email, comment=comment.comment) for comment in post[0].comments],
                 votes=post[1]
             )
         )
@@ -62,10 +62,11 @@ def get_post(id: int, db: Session = Depends(get_db), current_user: int = Depends
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"post with id: {id} not found")
     # if post.owner_id != current_user.id:
     #     raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="you do not have the autherization")
-    response = schemas.PostResponse(
-        Post=posts[0],
-        comments=[schemas.CommentOut(id=comment.id, comment=comment.comment, email=comment.email) for comment in posts[0].comments],
-        votes=posts[1]
+    for post in posts: 
+        response = schemas.PostResponse(
+            Post=post,
+            comments=[schemas.CommentOut(email=comment.email, comment=comment.comment) for comment in posts[0].comments],
+            votes= post[1]
     )
     return response
 
