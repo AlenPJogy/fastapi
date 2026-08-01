@@ -75,4 +75,4 @@ class PostOut(BaseModel):
 
     Post: Post
     votes: int
-    comments: list[CommentOut] = []
+    comments: str
