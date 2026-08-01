@@ -34,7 +34,7 @@ async def get_posts(db: Session = Depends(get_db), current_user: int = Depends(o
         response.append(
             schemas.PostResponse(
                 Post=post,
-                comments=[schemas.CommentOut(email=comment.email, comment=comment.comment) for comment in post[0].comments],
+                comments=[schemas.CommentOut.model_validate(comment) for comment in post[0].comments],
                 votes=post[1]
             )
         )
@@ -65,7 +65,7 @@ def get_post(id: int, db: Session = Depends(get_db), current_user: int = Depends
     for post in posts: 
         response = schemas.PostResponse(
             Post=post,
-            comments=[schemas.CommentOut(email=comment.email, comment=comment.comment) for comment in posts[0].comments],
+            comments=[schemas.CommentOut.model_validate(comment) for comment in posts[0].comments],
             votes= post[1]
     )
     return response
