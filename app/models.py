@@ -34,6 +34,6 @@ class Comment(Base):
     id=Column(Integer, primary_key=True, nullable=False)
     comment=Column(String, nullable=False, default="no comments yet")
     post_id=Column(Integer, ForeignKey("posts.id", ondelete="CASCADE"), nullable=False)
-    user_id=Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    email=Column(String, ForeignKey("users.email", ondelete="CASCADE"), nullable=False)
     user=relationship("User")
     post = relationship("Post", back_populates="comments")

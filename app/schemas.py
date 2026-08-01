@@ -19,10 +19,6 @@ class UserOut(BaseModel):
     email: EmailStr
     created_at: datetime
 
-class UserCommentOut(BaseModel):
-    model_config = ConfigDict(from_attributes=True)
-
-    email: str
 
 
 class Post(PostBase):
@@ -41,13 +37,14 @@ class PostOut(BaseModel):
     Post: Post
     votes: int
 
+
 class CommentOut(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
 
     id: int
     comment: str
-    email: UserCommentOut
+    email: EmailStr
 
 
 class UserCreate(BaseModel):
