@@ -29,7 +29,16 @@ async def get_posts(db: Session = Depends(get_db), current_user: int = Depends(o
                .limit(limit)
                .offset(skip)
                .all())
-    return posts
+    response = []
+    for post in posts:
+        response.append(
+            schemas.PostResponse(
+                Post=post[0],
+                comments=[schemas.CommentOut(id=comment.id, comment=comment.comment, email=comment.email) for comment in post[0].comments],
+                votes=post[1]
+            )
+        )
+    return response
 
 
 @router.post("/", status_code=status.HTTP_201_CREATED, response_model=schemas.Post)
@@ -41,7 +50,7 @@ def create_posts(post: schemas.PostCreate, db: Session = Depends(get_db), curren
     return new_post
 
 
-@router.get("/{id}", response_model=schemas.PostOut)
+@router.get("/{id}", response_model=schemas.PostResponse)
 def get_post(id: int, db: Session = Depends(get_db), current_user: int = Depends(oauth2.get_current_user)):
     # post = db.query(models.Post).filter(models.Post.id == id).first()
 
@@ -53,7 +62,12 @@ def get_post(id: int, db: Session = Depends(get_db), current_user: int = Depends
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"post with id: {id} not found")
     # if post.owner_id != current_user.id:
     #     raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="you do not have the autherization")
-    return posts
+    response = schemas.PostResponse(
+        Post=posts[0],
+        comments=[schemas.CommentOut(id=comment.id, comment=comment.comment, email=comment.email) for comment in posts[0].comments],
+        votes=posts[1]
+    )
+    return response
 
 @router.delete("/{id}")
 def delete_post(id: int, db: Session = Depends(get_db), current_user: int = Depends(oauth2.get_current_user)):
