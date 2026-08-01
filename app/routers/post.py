@@ -30,14 +30,19 @@ async def get_posts(db: Session = Depends(get_db), current_user: int = Depends(o
                .offset(skip)
                .all())
     response = []
+
     for post in posts:
         response.append(
             schemas.PostResponse(
-                Post=post,
-                comments=[schemas.CommentOut.model_validate(comment) for comment in post[0].comments],
+                Post=post[0],   
+                comments=[
+                    schemas.CommentOut.model_validate(comment)
+                    for comment in post[0].comments
+                    ],
                 votes=post[1]
             )
         )
+
     return response
 
 
@@ -64,7 +69,7 @@ def get_post(id: int, db: Session = Depends(get_db), current_user: int = Depends
     #     raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="you do not have the autherization")
     for post in posts: 
         response = schemas.PostResponse(
-            Post=post,
+            Post=post[0],
             comments=[schemas.CommentOut.model_validate(comment) for comment in posts[0].comments],
             votes= post[1]
     )
