@@ -27,3 +27,12 @@ class Vote(Base):
     __tablename__ = "votes"
     post_id=Column(Integer, ForeignKey("posts.id", ondelete="CASCADE"), primary_key=True, nullable=False)
     user_id=Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), primary_key=True, nullable=False)
+
+class Comment(Base):
+    __tablename__ = "comments"
+    id=Column(Integer, primary_key=True, nullable=False)
+    comment=Column(String, nullable=False, default="no comments yet")
+    post_id=Column(Integer, ForeignKey("posts.id", ondelete="CASCADE"), nullable=False)
+    user_id=Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    post=relationship("Post", backref="comments")
+    user=relationship("User")
