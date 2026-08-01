@@ -49,7 +49,7 @@ class PostResponse(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
     Post: Post
-    comment: List[CommentOut] = []
+    comments: List[CommentOut] = []
     votes: int
 
 
