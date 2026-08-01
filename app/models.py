@@ -14,6 +14,7 @@ class Post(Base):
     created_at=Column(TIMESTAMP(timezone=True), nullable=False, server_default=text('now()'))
     owner_id=Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
     owner=relationship("User")
+    comments = relationship("Comment", back_populates="post")
 
 
 class User(Base):
@@ -36,3 +37,4 @@ class Comment(Base):
     user_id=Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
     post=relationship("Post", backref="comments")
     user=relationship("User")
+    post = relationship("Post", back_populates="comments")

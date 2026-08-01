@@ -32,11 +32,7 @@ class Post(PostBase):
     owner: UserOut
 
 
-class PostOut(BaseModel):
-    model_config = ConfigDict(from_attributes=True)
 
-    Post: Post
-    votes: int
 
 
 class UserCreate(BaseModel):
@@ -64,3 +60,19 @@ class Vote(BaseModel):
 class CommentBase(BaseModel):
     comment: str
     post_id: int
+
+class CommentOut(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+
+    id: int
+    content: str
+
+
+
+class PostOut(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    Post: Post
+    votes: int
+    comments: list[CommentOut] = []
