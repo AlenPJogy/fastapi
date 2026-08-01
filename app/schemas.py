@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Annotated, Optional
+from typing import Annotated, List, Optional
 
 from pydantic import BaseModel, ConfigDict, EmailStr, Field
 
@@ -30,7 +30,7 @@ class Post(PostBase):
     created_at: datetime
     owner_id: int
     owner: UserOut
-    comments: Optional[str]
+    comments: List["CommentOut"]= []
 
 class PostOut(BaseModel):
     model_config = ConfigDict(from_attributes=True)
@@ -43,7 +43,10 @@ class CommentOut(BaseModel):
 
 
     id: int
-    CommentBase: CommentBase
+    comment: str
+    post_id: int
+    user_id: int
+
 
 class UserCreate(BaseModel):
     email: EmailStr
