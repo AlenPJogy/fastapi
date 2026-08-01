@@ -30,7 +30,7 @@ class Post(PostBase):
     created_at: datetime
     owner_id: int
     owner: UserOut
-    comments: str
+    comments: Optional[str]
 
 class PostOut(BaseModel):
     model_config = ConfigDict(from_attributes=True)
