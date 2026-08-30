@@ -20,6 +20,9 @@ engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
 TestingSessionLocal= sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
+class Base(DeclarativeBase):
+    pass
+
 client = TestClient(app)
 
 @pytest.fixture(scope="function")
