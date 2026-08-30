@@ -4,16 +4,17 @@ from sqlalchemy.orm import sessionmaker
 # import psycopg2
 # from psycopg2.extras import RealDictCursor
 from .config import settings
-
+from sqlalchemy.orm import DeclarativeBase
 
 SQLALCHEMY_DATABASE_URL = f'postgresql://{settings.database_username}:{settings.database_password}@{settings.database_hostname}:{settings.database_port}/{settings.database_name}'
 
-engine = create_engine(SQLALCHEMY_DATABASE_URL,
-    connect_args={"sslmode": "require"})
+engine = create_engine(SQLALCHEMY_DATABASE_URL)
+    # connect_args={"sslmode": "require"})
 
 SessionLocal= sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-Base = declarative_base()
+class Base(DeclarativeBase):
+    pass
 
 
 def get_db():

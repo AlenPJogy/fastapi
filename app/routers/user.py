@@ -4,7 +4,8 @@ from ..database import get_db
 from sqlalchemy.orm import Session
 
 router = APIRouter(
-    prefix="/users"
+    prefix="/users",
+    tags=['Users']
 )
 
 @router.post("/", status_code=status.HTTP_201_CREATED, response_model=schemas.UserOut)
@@ -12,7 +13,15 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
 
     # hashing the password - user.password
     user.password = utils.hash_password(user.password)
+    existing_user = db.query(models.User).filter(
+        models.User.email == user.email
+    ).first()
 
+    if existing_user:
+        raise HTTPException(
+            status_code=400,
+            detail="Email already registered"
+        )
     new_user = models.User(**user.model_dump())
     db.add(new_user)
     db.commit()

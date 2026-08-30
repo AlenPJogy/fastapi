@@ -28,7 +28,7 @@ app.include_router(comment.router)
 
 @app.get("/")
 async def root():
-    return {"message": "this is my API"}
+    return {"message": "hello everynyan"}
 
 
 

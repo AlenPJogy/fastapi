@@ -4,9 +4,10 @@ from sqlalchemy import func
 from .. import models, schemas, oauth2
 from ..database import get_db
 from typing import List, Optional
-
+from app.schemas import PostResponse, CommentOut, PostOut
 router = APIRouter(
-    prefix="/posts"
+    prefix="/posts",
+    tags=['Posts']
 )
 
 
