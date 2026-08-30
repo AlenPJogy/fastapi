@@ -68,11 +68,14 @@ def get_post(id: int, db: Session = Depends(get_db), current_user: int = Depends
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"post with id: {id} not found")
     # if post.owner_id != current_user.id:
     #     raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="you do not have the autherization")
-    for post in posts: 
-        response = schemas.PostResponse(
-            Post=post[0],
-            comments=[schemas.CommentOut.model_validate(comment) for comment in posts[0].comments],
-            votes= post[1]
+    Post, votes = posts
+    response = schemas.PostResponse(
+        Post=posts,
+        comments=[
+            schemas.CommentOut.model_validate(comment)
+            for comment in posts.comments
+        ],
+        votes=votes
     )
     return response
 
