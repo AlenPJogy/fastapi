@@ -70,10 +70,10 @@ def get_post(id: int, db: Session = Depends(get_db), current_user: int = Depends
     #     raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="you do not have the autherization")
     post, votes = posts
     response = schemas.PostResponse(
-        Post=posts,
+        Post=post,
         comments=[
             schemas.CommentOut.model_validate(comment)
-            for comment in posts.comments
+            for comment in post.comments
         ],
         votes=votes
     )
