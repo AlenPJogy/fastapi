@@ -14,4 +14,4 @@ def comment(comment: schemas.CommentBase, db: Session = Depends(database.get_db)
     db.add(new_comment)
     db.commit()
     db.refresh(new_comment)
-    return {"message": "successfully added comment", "comment": new_comment}
+    return new_comment
