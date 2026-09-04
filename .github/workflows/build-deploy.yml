@@ -3,7 +3,7 @@ name: Build and Deploy Code
 on: [push, pull_request]
 
 jobs:
-    job1:
+    build:
         environment:
           name: TESTING
         env:
@@ -66,3 +66,10 @@ jobs:
                 cache-to: type=local,dest=/tmp/.buildx-cache
             - name: image digest
               run: echo ${{ steps.docker_build.outputs.digest }}
+
+    deploy:
+        needs: [build]
+        runs-on: ubuntu-latest
+        steps:
+          - name: deploy
+            run: echo "Deploying the application..."
