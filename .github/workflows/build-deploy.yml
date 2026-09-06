@@ -76,7 +76,7 @@ jobs:
           - name: Create deployment
             uses: sws2apps/render-deployment@main #consider using pin for dependabot auto update
             with:
-              serviceId: ${{ secrets.RENDER_SERVICE_ID }}
+              serviceId: ${{ secrets.SERVICE_ID }}
               apiKey: ${{ secrets.RENDER_API_KEY }}
               node-version: lts/Jod #optional
               cli-version: 2.2.0 #optional
