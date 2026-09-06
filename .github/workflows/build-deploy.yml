@@ -71,8 +71,12 @@ jobs:
         needs: [build]
         runs-on: ubuntu-latest
         steps:
-          - name: Deploy to production
-            uses: johnbeynon/render-deploy-action@747373cdb7b9b3f561438e063ee0815b71584f1b
+          - name: Deploy to Render
+            uses: actions/checkout@main #consider using pin for dependabot auto update
+          - name: Create deployment
+            uses: sws2apps/render-deployment@main #consider using pin for dependabot auto update
             with:
-              service-id: ${{ secrets.SERVICE_ID }}
-              api-key: ${{ secrets.RENDER_API_KEY }}
+              serviceId: ${{ secrets.RENDER_SERVICE_ID }}
+              apiKey: ${{ secrets.RENDER_API_KEY }}
+              node-version: lts/Jod #optional
+              cli-version: 2.2.0 #optional
