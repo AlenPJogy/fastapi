@@ -78,3 +78,13 @@ jobs:
           - name: Deploy to Render
             run: |
               curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK_URL }}"
+          - name: Checkout code
+            uses: actions/checkout@main #consider using pin for dependabot auto update
+
+          - name: Create deployment
+            uses: sws2apps/render-deployment@main #consider using pin for dependabot auto update
+            with:
+              serviceId: ${{ secrets.RENDER_SERVICE_ID }}
+              apiKey: ${{ secrets.RENDER_API_KEY }}
+              node-version: lts/Jod
+              cli-version: 2.2.0 
