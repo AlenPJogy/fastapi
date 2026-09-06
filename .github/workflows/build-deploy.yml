@@ -71,5 +71,8 @@ jobs:
         needs: [build]
         runs-on: ubuntu-latest
         steps:
-          - name: deploy
-            run: echo "Deploying the application..."
+          - name: Deploy to production
+            uses: johnbeynon/render-deploy-action@747373cdb7b9b3f561438e063ee0815b71584f1b
+            with:
+              service-id: ${{ secrets.SERVICE_ID }}
+              api-key: ${{ secrets.RENDER_API_KEY }}
