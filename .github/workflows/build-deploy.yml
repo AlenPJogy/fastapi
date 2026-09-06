@@ -69,7 +69,7 @@ jobs:
 
     deploy:
         environment:
-          name: TESTING
+          name: PRODUCTION
         needs: [build]
         runs-on: ubuntu-latest
         steps:
