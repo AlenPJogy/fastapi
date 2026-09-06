@@ -75,9 +75,6 @@ jobs:
         steps:
           - name: pulling git repo
             uses: actions/checkout@v3
-          - name: Deploy to Render
-            run: |
-              curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK_URL }}"
           - name: Checkout code
             uses: actions/checkout@main #consider using pin for dependabot auto update
 
@@ -88,3 +85,6 @@ jobs:
               apiKey: ${{ secrets.RENDER_API_KEY }}
               node-version: lts/Jod
               cli-version: 2.2.0 
+          - name: Deploy to Render
+            run: |
+              curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK_URL }}"
